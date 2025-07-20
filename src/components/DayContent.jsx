@@ -9,6 +9,7 @@ import { ScrollArea } from '@/components/ui/scroll-area.jsx'
 import ReactMarkdown from 'react-markdown'
 import { useNavigate } from 'react-router-dom'
 import PracticeTab from './PracticeTab.jsx'
+import remarkGfm from 'remark-gfm'
 
 const typeColors = {
   foundation: 'bg-blue-100 text-blue-800 border-blue-200',
@@ -116,6 +117,12 @@ export default function DayContent({ day, courseData, setSidebarOpen, setCurrent
           </TabsList>
 
           <TabsContent value="content" className="mt-6">
+            <div className="mb-4">
+              <Button variant="outline" onClick={() => navigate('/')} className="flex items-center gap-2">
+                <ChevronLeft className="w-4 h-4" />
+                Back to Home
+              </Button>
+            </div>
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -125,8 +132,9 @@ export default function DayContent({ day, courseData, setSidebarOpen, setCurrent
                 <CardDescription>{lesson?.type}</CardDescription>
               </CardHeader>
               <CardContent className="p-8">
-                <div className="prose prose-lg max-w-none overflow-x-auto" style={{ wordBreak: 'break-word' }}>
+                <div className="prose prose-lg max-w-3xl mx-auto bg-white/95 rounded-xl shadow-lg p-8 my-8 border border-gray-300 text-gray-900" style={{ fontSize: '1.15rem', lineHeight: '1.8' }}>
                   <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
                     components={{
                       pre: ({node, ...props}) => (
                         <pre {...props} className="overflow-x-auto bg-gray-900 text-green-400 p-4 rounded text-sm" />
